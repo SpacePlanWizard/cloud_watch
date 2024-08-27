@@ -5,7 +5,7 @@ defmodule CloudWatch.Mixfile do
     [
       app: :cloud_watch,
       version: "0.4.2",
-      elixir: "~> 1.6",
+      elixir: "~> 1.17.2",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -26,6 +26,9 @@ defmodule CloudWatch.Mixfile do
 
       Code.ensure_loaded?(ExAws) ->
         [extra_applications: [:logger, :ex_aws]]
+
+      true ->
+        [extra_applications: [:logger]]
     end
   end
 
@@ -45,7 +48,7 @@ defmodule CloudWatch.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:aws, "<= 0.7.0 or ~> 0.8", optional: true},
+      {:aws, "~> 1.0.0", optional: true},
       # Include mime for ex_aws; mime 2.x requires Elixir ~> 1.10
       {:mime, "<= 1.2.0 or ~> 2.0", optional: true},
       {:ex_aws, "~> 2.2", optional: true},
@@ -61,6 +64,7 @@ defmodule CloudWatch.Mixfile do
     cond do
       Version.match?(System.version(), "< 1.10.0") ->
         "mix_legacy.lock"
+
       true ->
         "mix.lock"
     end

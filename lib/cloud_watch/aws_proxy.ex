@@ -38,12 +38,11 @@ defmodule CloudWatch.AwsProxy do
       # Since v0.7.0, module renamed from Logs to CloudWatchLogs
 
       # AWS credentials are configured in CloudWatch
-      def client(access_key_id, secret_access_key, region, endpoint) do
+      def client(access_key_id, secret_access_key, region, _endpoint) do
         %AWS.Client{
           access_key_id: access_key_id,
           secret_access_key: secret_access_key,
           region: region,
-          endpoint: endpoint
         }
       end
 
